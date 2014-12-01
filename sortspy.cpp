@@ -2,7 +2,9 @@
 #include <fstream>
 #include <compare_spy.h>
 #include <compare.h>
-#include "stringsort.h"
+#include "lsb.h"
+#include "msb.h"
+#include "qs3w.h"
 #include "genalg.h"
 #include "vector.h"
 #include <timer.h>
@@ -45,9 +47,6 @@ int main(int argc, char* argv[])
     return 0;
   }
 
-  /* Create the StringSort class with the specified alphabet. */
-  StringSorts<CharType> string_sorts(R, logR);
-
   /* The less than spy used to determine how many comparisons were done as part
      of the sort. */
   fsu::LessThanSpy<CharType> lts;
@@ -70,6 +69,9 @@ int main(int argc, char* argv[])
 
   /******************** LSB Sort ********************/
 
+  /* Create the LSB class with the specified alphabet. */
+  LSB<CharType> lsb(R, logR);
+
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
 
@@ -78,7 +80,7 @@ int main(int argc, char* argv[])
   
   /* Perform and time the LSB sort. */
   timer.SplitReset();
-  string_sorts.Sort_LSB(data, source_data.Size(), lts);
+  lsb.Sort(data, source_data.Size(), lts);
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
@@ -93,6 +95,9 @@ int main(int argc, char* argv[])
 
   /******************** MSB Sort ********************/
 
+  /* Create the MSB class with the specified alphabet. */
+  MSB<CharType> msb(R, logR);
+
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
 
@@ -101,7 +106,7 @@ int main(int argc, char* argv[])
   
   /* Perform and time the MSB sort. */
   timer.SplitReset();
-  string_sorts.Sort_MSB(data, source_data.Size(), lts);
+  msb.Sort(data, source_data.Size(), lts);
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
@@ -116,6 +121,9 @@ int main(int argc, char* argv[])
 
   /******************** 3WQS Sort ********************/
 
+  /* Create the MSB class with the specified alphabet. */
+  QS3W<CharType> qs3w(R, logR);
+
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
 
@@ -124,7 +132,7 @@ int main(int argc, char* argv[])
   
   /* Perform and time the 3WQS sort. */
   timer.SplitReset();
-  string_sorts.Sort_3WQS(data, source_data.Size(), lts);
+  qs3w.Sort(data, source_data.Size(), lts);
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
