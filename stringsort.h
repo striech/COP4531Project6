@@ -1,5 +1,7 @@
 #include "stddef.h"
 #include <iostream>
+#include <algorithm>
+#include <functional>
 
 #ifndef _STRINGSORT_H
 #define _STRINGSORT_H
@@ -33,36 +35,21 @@ template <typename T>
 template <class Predicate>
 void StringSorts<T>::Sort_LSB(String str, size_t length, Predicate& predicate)
 {
-  (void)str;
-  (void)length;
-  for(size_t i = 0; i < 10; i++)
-  {
-    predicate(i, i);
-  }
+  std::sort(&str[0], &str[length], std::ref(predicate));
 }
 
 template <typename T>
 template <class Predicate>
 void StringSorts<T>::Sort_MSB(String str, size_t length, Predicate& predicate)
 {
-  (void)str;
-  (void)length;
-  for(size_t i = 0; i < 100; i++)
-  {
-    predicate(i, i);
-  }
+  std::sort(&str[0], &str[length], std::ref(predicate));
 }
 
 template <typename T>
 template <class Predicate>
 void StringSorts<T>::Sort_3WQS(String str, size_t length, Predicate& predicate)
 {
-  (void)str;
-  (void)length;
-  for(size_t i = 0; i < 1000; i++)
-  {
-    predicate(i, i);
-  }
+  std::sort(&str[0], &str[length], std::ref(predicate));
 }
 
 #endif

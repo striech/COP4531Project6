@@ -63,15 +63,15 @@ diff -q data/uppercase/sorted_10000 results/uppercase/duplicate_10000.3WQS
 diff -q data/decimal/sorted_10000 results/decimal/random_10000.LSB
 diff -q data/decimal/sorted_10000 results/decimal/sorted_10000.LSB
 diff -q data/decimal/sorted_10000 results/decimal/reversed_10000.LSB
-diff -q data/decimal/sorted_10000 results/decimal/duplicate_10000.LSB
+diff -q data/decimal/duplicate_10000 results/decimal/duplicate_10000.LSB
 diff -q data/decimal/sorted_10000 results/decimal/random_10000.MSB
 diff -q data/decimal/sorted_10000 results/decimal/sorted_10000.MSB
 diff -q data/decimal/sorted_10000 results/decimal/reversed_10000.MSB
-diff -q data/decimal/sorted_10000 results/decimal/duplicate_10000.MSB
+diff -q data/decimal/duplicate_10000 results/decimal/duplicate_10000.MSB
 diff -q data/decimal/sorted_10000 results/decimal/random_10000.3WQS
 diff -q data/decimal/sorted_10000 results/decimal/sorted_10000.3WQS
 diff -q data/decimal/sorted_10000 results/decimal/reversed_10000.3WQS
-diff -q data/decimal/sorted_10000 results/decimal/duplicate_10000.3WQS
+diff -q data/decimal/duplicate_10000 results/decimal/duplicate_10000.3WQS
 
 ../sortspy_dna.x data/dna/random_10000 results/dna/random_10000
 ../sortspy_dna.x data/dna/sorted_10000 results/dna/sorted_10000
@@ -80,15 +80,15 @@ diff -q data/decimal/sorted_10000 results/decimal/duplicate_10000.3WQS
 diff -q data/dna/sorted_10000 results/dna/random_10000.LSB
 diff -q data/dna/sorted_10000 results/dna/sorted_10000.LSB
 diff -q data/dna/sorted_10000 results/dna/reversed_10000.LSB
-diff -q data/dna/sorted_10000 results/dna/duplicate_10000.LSB
+diff -q data/dna/duplicate_10000 results/dna/duplicate_10000.LSB
 diff -q data/dna/sorted_10000 results/dna/random_10000.MSB
 diff -q data/dna/sorted_10000 results/dna/sorted_10000.MSB
 diff -q data/dna/sorted_10000 results/dna/reversed_10000.MSB
-diff -q data/dna/sorted_10000 results/dna/duplicate_10000.MSB
+diff -q data/dna/duplicate_10000 results/dna/duplicate_10000.MSB
 diff -q data/dna/sorted_10000 results/dna/random_10000.3WQS
 diff -q data/dna/sorted_10000 results/dna/sorted_10000.3WQS
 diff -q data/dna/sorted_10000 results/dna/reversed_10000.3WQS
-diff -q data/dna/sorted_10000 results/dna/duplicate_10000.3WQS
+diff -q data/dna/duplicate_10000 results/dna/duplicate_10000.3WQS
 
 ../sortspy_binary.x data/binary/random_10000 results/binary/random_10000
 ../sortspy_binary.x data/binary/sorted_10000 results/binary/sorted_10000
@@ -97,12 +97,12 @@ diff -q data/dna/sorted_10000 results/dna/duplicate_10000.3WQS
 diff -q data/binary/sorted_10000 results/binary/random_10000.LSB
 diff -q data/binary/sorted_10000 results/binary/sorted_10000.LSB
 diff -q data/binary/sorted_10000 results/binary/reversed_10000.LSB
-diff -q data/binary/sorted_10000 results/binary/duplicate_10000.LSB
+diff -q data/binary/duplicate_10000 results/binary/duplicate_10000.LSB
 diff -q data/binary/sorted_10000 results/binary/random_10000.MSB
 diff -q data/binary/sorted_10000 results/binary/sorted_10000.MSB
 diff -q data/binary/sorted_10000 results/binary/reversed_10000.MSB
-diff -q data/binary/sorted_10000 results/binary/duplicate_10000.MSB
+diff -q data/binary/duplicate_10000 results/binary/duplicate_10000.MSB
 diff -q data/binary/sorted_10000 results/binary/random_10000.3WQS
 diff -q data/binary/sorted_10000 results/binary/sorted_10000.3WQS
 diff -q data/binary/sorted_10000 results/binary/reversed_10000.3WQS
-diff -q data/binary/sorted_10000 results/binary/duplicate_10000.3WQS
+diff -q data/binary/duplicate_10000 results/binary/duplicate_10000.3WQS
