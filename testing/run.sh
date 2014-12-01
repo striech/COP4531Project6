@@ -12,15 +12,15 @@ mkdir -p results/binary
 diff -q data/unicode16/sorted_10000 results/unicode16/random_10000.LSB
 diff -q data/unicode16/sorted_10000 results/unicode16/sorted_10000.LSB
 diff -q data/unicode16/sorted_10000 results/unicode16/reversed_10000.LSB
-diff -q data/unicode16/sorted_10000 results/unicode16/duplicate_10000.LSB
+diff -q data/unicode16/duplicate_10000 results/unicode16/duplicate_10000.LSB
 diff -q data/unicode16/sorted_10000 results/unicode16/random_10000.MSB
 diff -q data/unicode16/sorted_10000 results/unicode16/sorted_10000.MSB
 diff -q data/unicode16/sorted_10000 results/unicode16/reversed_10000.MSB
-diff -q data/unicode16/sorted_10000 results/unicode16/duplicate_10000.MSB
+diff -q data/unicode16/duplicate_10000 results/unicode16/duplicate_10000.MSB
 diff -q data/unicode16/sorted_10000 results/unicode16/random_10000.3WQS
 diff -q data/unicode16/sorted_10000 results/unicode16/sorted_10000.3WQS
 diff -q data/unicode16/sorted_10000 results/unicode16/reversed_10000.3WQS
-diff -q data/unicode16/sorted_10000 results/unicode16/duplicate_10000.3WQS
+diff -q data/unicode16/duplicate_10000 results/unicode16/duplicate_10000.3WQS
 
 ../sortspy_extended_ascii.x data/extended_ascii/random_10000 results/extended_ascii/random_10000
 ../sortspy_extended_ascii.x data/extended_ascii/sorted_10000 results/extended_ascii/sorted_10000
@@ -29,15 +29,15 @@ diff -q data/unicode16/sorted_10000 results/unicode16/duplicate_10000.3WQS
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/random_10000.LSB
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/sorted_10000.LSB
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/reversed_10000.LSB
-diff -q data/extended_ascii/sorted_10000 results/extended_ascii/duplicate_10000.LSB
+diff -q data/extended_ascii/duplicate_10000 results/extended_ascii/duplicate_10000.LSB
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/random_10000.MSB
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/sorted_10000.MSB
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/reversed_10000.MSB
-diff -q data/extended_ascii/sorted_10000 results/extended_ascii/duplicate_10000.MSB
+diff -q data/extended_ascii/duplicate_10000 results/extended_ascii/duplicate_10000.MSB
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/random_10000.3WQS
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/sorted_10000.3WQS
 diff -q data/extended_ascii/sorted_10000 results/extended_ascii/reversed_10000.3WQS
-diff -q data/extended_ascii/sorted_10000 results/extended_ascii/duplicate_10000.3WQS
+diff -q data/extended_ascii/duplicate_10000 results/extended_ascii/duplicate_10000.3WQS
 
 ../sortspy_uppercase.x data/uppercase/random_10000 results/uppercase/random_10000
 ../sortspy_uppercase.x data/uppercase/sorted_10000 results/uppercase/sorted_10000
@@ -46,15 +46,15 @@ diff -q data/extended_ascii/sorted_10000 results/extended_ascii/duplicate_10000.
 diff -q data/uppercase/sorted_10000 results/uppercase/random_10000.LSB
 diff -q data/uppercase/sorted_10000 results/uppercase/sorted_10000.LSB
 diff -q data/uppercase/sorted_10000 results/uppercase/reversed_10000.LSB
-diff -q data/uppercase/sorted_10000 results/uppercase/duplicate_10000.LSB
+diff -q data/uppercase/duplicate_10000 results/uppercase/duplicate_10000.LSB
 diff -q data/uppercase/sorted_10000 results/uppercase/random_10000.MSB
 diff -q data/uppercase/sorted_10000 results/uppercase/sorted_10000.MSB
 diff -q data/uppercase/sorted_10000 results/uppercase/reversed_10000.MSB
-diff -q data/uppercase/sorted_10000 results/uppercase/duplicate_10000.MSB
+diff -q data/uppercase/duplicate_10000 results/uppercase/duplicate_10000.MSB
 diff -q data/uppercase/sorted_10000 results/uppercase/random_10000.3WQS
 diff -q data/uppercase/sorted_10000 results/uppercase/sorted_10000.3WQS
 diff -q data/uppercase/sorted_10000 results/uppercase/reversed_10000.3WQS
-diff -q data/uppercase/sorted_10000 results/uppercase/duplicate_10000.3WQS
+diff -q data/uppercase/duplicate_10000 results/uppercase/duplicate_10000.3WQS
 
 ../sortspy_decimal.x data/decimal/random_10000 results/decimal/random_10000
 ../sortspy_decimal.x data/decimal/sorted_10000 results/decimal/sorted_10000
