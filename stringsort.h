@@ -1,6 +1,9 @@
 #include "stddef.h"
 #include <iostream>
 
+#ifndef _STRINGSORT_H
+#define _STRINGSORT_H
+
 template <typename T>
 class StringSorts
 {
@@ -34,7 +37,7 @@ void StringSorts<T>::Sort_LSB(String str, size_t length, Predicate& predicate)
   (void)length;
   for(size_t i = 0; i < 10; i++)
   {
-    predicate(i, i + 1);
+    predicate(i, i);
   }
 }
 
@@ -46,7 +49,7 @@ void StringSorts<T>::Sort_MSB(String str, size_t length, Predicate& predicate)
   (void)length;
   for(size_t i = 0; i < 100; i++)
   {
-    predicate(i, i + 1);
+    predicate(i, i);
   }
 }
 
@@ -58,6 +61,8 @@ void StringSorts<T>::Sort_3WQS(String str, size_t length, Predicate& predicate)
   (void)length;
   for(size_t i = 0; i < 1000; i++)
   {
-    predicate(i, i + 1);
+    predicate(i, i);
   }
 }
+
+#endif

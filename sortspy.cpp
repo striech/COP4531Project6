@@ -7,16 +7,42 @@
 #include "vector.h"
 #include <timer.h>
 #include <string>
+#include "stringsort_type.h"
 
-/* EXTENDED ASCII */
+/* UNICODE16
+typedef uint16_t CharType;
+const size_t logR = 16;
+const size_t R = 65536;
+*/
+
+/* EXTENDED ASCII
 typedef uint8_t CharType;
 const size_t logR = 8;
 const size_t R = 256;
+*/
+
+/* UPPERCASE
+typedef uint8_t CharType;
+const size_t logR = 5;
+const size_t R = 26;
+*/
 
 /* DECIMAL
-typedef enum {0,1,2,3,4,5,6,7,8,9} CharType;
+typedef uint8_t CharType;
 const size_t logR = 4;
 const size_t R = 10;
+*/
+
+/* DNA
+typedef uint8_t CharType;
+const size_t logR = 2;
+const size_t R = 4;
+*/
+
+/* BINARY
+typedef uint8_t CharType;
+const size_t logR = 1;
+const size_t R = 2;
 */
 
 void WriteSortedResultsFile(CharType * data, size_t length, std::string filename);
@@ -71,7 +97,7 @@ int main(int argc, char* argv[])
   uint32_t item;
   while(instream >> item)
   {
-    source_data.PushBack(item);
+    source_data.PushBack((CharType)item);
   }
   CharType * data = new CharType[source_data.Size()];
 
