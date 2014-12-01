@@ -9,7 +9,7 @@ AREA51  = $(LIB)/area51
 PROJ    = .
 INCPATH = -I$(PROJ) -I$(TCPP) -I$(CPP)
 
-CC   = g++ -std=c++11 -Wall -Wextra
+CC   = g++47 -std=c++11 -Wall -Wextra
 
 all: sortspy_unicode16.x sortspy_extendedascii.x sortspy_uppercase.x sortspy_decimal.x sortspy_dna.x sortspy_binary.x
 
