@@ -6,6 +6,7 @@
 #include "genalg.h"
 #include "vector.h"
 #include <timer.h>
+#include <string>
 
 /* EXTENDED ASCII */
 typedef uint8_t CharType;
@@ -18,13 +19,16 @@ const size_t logR = 4;
 const size_t R = 10;
 */
 
+void WriteFile(CharType * data, size_t length, std::string filename);
+
 int main(int argc, char* argv[])
 {
   /* Make sure command line arguments are ok. */
-  if(argc < 2)
+  if(argc < 3)
   {
     std::cout << " ** command line arguments:\n"
 	      << "     1: input filename (required)\n"
+        << "     2: output base filename (required)\n"
 	      << " ** try again\n";
     return 0;
   }
@@ -59,6 +63,9 @@ int main(int argc, char* argv[])
   }
   CharType * data = new CharType[source_data.Size()];
 
+  /* Close instream. */
+  instream.close();
+
   /******************** LSB Sort ********************/
 
   /* Populate the data array to be sorted. */
@@ -78,6 +85,9 @@ int main(int argc, char* argv[])
   std::cout << "time (useconds): " << instant.Get_useconds() << std::endl;
   std::cout << "comparisons: " << lts.Count() << std::endl;
   std::cout << std::endl;
+
+  /* Write sorted results. */
+  WriteFile(data, source_data.Size(), std::string(argv[2]) + std::string(".LSB"));
 
   /******************** MSB Sort ********************/
 
@@ -99,6 +109,9 @@ int main(int argc, char* argv[])
   std::cout << "comparisons: " << lts.Count() << std::endl;
   std::cout << std::endl;
 
+  /* Write sorted results. */
+  WriteFile(data, source_data.Size(), std::string(argv[2]) + std::string(".MSB"));
+
   /******************** 3WQS Sort ********************/
 
   /* Populate the data array to be sorted. */
@@ -118,6 +131,28 @@ int main(int argc, char* argv[])
   std::cout << "time (useconds): " << instant.Get_useconds() << std::endl;
   std::cout << "comparisons: " << lts.Count() << std::endl;
   std::cout << std::endl;
+
+  /* Write sorted results. */
+  WriteFile(data, source_data.Size(), std::string(argv[2]) + std::string(".3WQS"));
+
   return 0;
 }
 
+void WriteFile(CharType * data, size_t length, std::string filename)
+{
+  std::ofstream outstream(filename);
+
+  if (outstream.fail())
+  {
+    std::cout << " ** cannot open file " << filename << " for write\n"
+        << " ** try again\n";
+    return;
+  }
+
+  for(size_t i = 0; i < length; i++)
+  {
+    outstream << data[i] << std::endl;
+  }
+
+  outstream.close();
+}
