@@ -19,26 +19,38 @@ const size_t logR = 4;
 const size_t R = 10;
 */
 
-void WriteFile(CharType * data, size_t length, std::string filename);
+void WriteSortedResultsFile(CharType * data, size_t length, std::string filename);
 
 int main(int argc, char* argv[])
 {
   /* Make sure command line arguments are ok. */
   if(argc < 3)
   {
-    std::cout << " ** command line arguments:\n"
-	      << "     1: input filename (required)\n"
-        << "     2: output base filename (required)\n"
-	      << " ** try again\n";
+    std::cout << " ** command line arguments:" << std::endl
+	      << "     1: input filename (required)" << std::endl
+        << "     2: output filename (required) [This will output a file with the timing results," << std::endl
+        << "                                    and also files with the sorted results, with extensions" << std::endl
+        << "                                    .LSB, .MSB, and .3WQS." << std::endl
+	      << " ** try again" << std::endl;
     return 0;
   }
 
   /* Make sure we can open the specified input file of strings to sort. */
-  char* infile = argv[1];
+  std::string infile = argv[1];
   std::ifstream instream(infile);
   if(instream.fail())
   {
     std::cout << " ** cannot open file " << infile << " for read"
+         << std::endl << " ** try again" << std::endl;
+    return 0;
+  }
+
+  /* Make sure we can open the specified output file. */
+  std::string outfile = argv[2];
+  std::ofstream outstream(outfile);
+  if(outstream.fail())
+  {
+    std::cout << " ** cannot open file " << outstream << " for write"
          << std::endl << " ** try again" << std::endl;
     return 0;
   }
@@ -80,14 +92,14 @@ int main(int argc, char* argv[])
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
-  std::cout << "LSB sort." << std::endl;
-  std::cout << "time (seconds): " << instant.Get_seconds() << std::endl;
-  std::cout << "time (useconds): " << instant.Get_useconds() << std::endl;
-  std::cout << "comparisons: " << lts.Count() << std::endl;
-  std::cout << std::endl;
+  outstream << "LSB sort." << std::endl;
+  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
+  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
+  outstream << "comparisons: " << lts.Count() << std::endl;
+  outstream << std::endl;
 
   /* Write sorted results. */
-  WriteFile(data, source_data.Size(), std::string(argv[2]) + std::string(".LSB"));
+  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".LSB"));
 
   /******************** MSB Sort ********************/
 
@@ -103,14 +115,14 @@ int main(int argc, char* argv[])
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
-  std::cout << "MSB sort." << std::endl;
-  std::cout << "time (seconds): " << instant.Get_seconds() << std::endl;
-  std::cout << "time (useconds): " << instant.Get_useconds() << std::endl;
-  std::cout << "comparisons: " << lts.Count() << std::endl;
-  std::cout << std::endl;
+  outstream << "MSB sort." << std::endl;
+  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
+  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
+  outstream << "comparisons: " << lts.Count() << std::endl;
+  outstream << std::endl;
 
   /* Write sorted results. */
-  WriteFile(data, source_data.Size(), std::string(argv[2]) + std::string(".MSB"));
+  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".MSB"));
 
   /******************** 3WQS Sort ********************/
 
@@ -126,19 +138,22 @@ int main(int argc, char* argv[])
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
-  std::cout << "3WQS sort." << std::endl;
-  std::cout << "time (seconds): " << instant.Get_seconds() << std::endl;
-  std::cout << "time (useconds): " << instant.Get_useconds() << std::endl;
-  std::cout << "comparisons: " << lts.Count() << std::endl;
-  std::cout << std::endl;
+  outstream << "3WQS sort." << std::endl;
+  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
+  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
+  outstream << "comparisons: " << lts.Count() << std::endl;
+  outstream << std::endl;
 
   /* Write sorted results. */
-  WriteFile(data, source_data.Size(), std::string(argv[2]) + std::string(".3WQS"));
+  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".3WQS"));
+
+  /* Close file. */
+  outstream.close();
 
   return 0;
 }
 
-void WriteFile(CharType * data, size_t length, std::string filename)
+void WriteSortedResultsFile(CharType * data, size_t length, std::string filename)
 {
   std::ofstream outstream(filename);
 
