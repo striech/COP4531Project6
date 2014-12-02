@@ -8,7 +8,7 @@ This is the FSU COP4531 Project 6 code repository.
 
 #### Top Level
 
-At the top level are the files that are required to be submitted. This includes the ssspy.cpp file, as well as the lsb.h, msb.h, and qs3w.h files. ssspy.cpp implements the testing and timing of the various sort algorithms, lsb.h is the class implementation of the LSB sort, msb.h is the class implementation of the MSB sort, and qs3w.h is the class implementation of the QS3W sort.
+At the top level are the files that are required to be submitted. This includes the ssspy.cpp file, as well as the lsd.h, msd.h, and qs3w.h files. ssspy.cpp implements the testing and timing of the various sort algorithms, lsd.h is the class implementation of the LSD sort, msd.h is the class implementation of the MSD sort, and qs3w.h is the class implementation of the QS3W sort.
 
 #### sortspy_types
 

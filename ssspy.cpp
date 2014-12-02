@@ -2,8 +2,8 @@
 #include <fstream>
 #include <compare_spy.h>
 #include <compare.h>
-#include "lsb.h"
-#include "msb.h"
+#include "lsd.h"
+#include "msd.h"
 #include "qs3w.h"
 #include "genalg.h"
 #include "vector.h"
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	      << "     1: input filename (required)" << std::endl
         << "     2: output filename (required) [This will output a file with the timing results," << std::endl
         << "                                    and also files with the sorted results, with extensions" << std::endl
-        << "                                    .LSB, .MSB, and .3WQS." << std::endl
+        << "                                    .LSD, .MSD, and .3WQS." << std::endl
 	      << " ** try again" << std::endl;
     return 0;
   }
@@ -67,36 +67,10 @@ int main(int argc, char* argv[])
   /* Close instream. */
   instream.close();
 
-  /******************** LSB Sort ********************/
+  /******************** LSD Sort ********************/
 
-  /* Create the LSB class with the specified alphabet. */
-  LSB<CharType> lsb(R, logR);
-
-  /* Populate the data array to be sorted. */
-  fsu::g_copy(source_data.Begin(), source_data.End(), data);
-
-  /* Reset comparison count. */
-  lts.Reset();
-  
-  /* Perform and time the LSB sort. */
-  timer.SplitReset();
-  lsb.Sort(data, source_data.Size(), lts);
-  instant = timer.SplitTime();
-
-  /* Output pertinent data. */
-  outstream << "LSB sort." << std::endl;
-  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
-  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
-  outstream << "comparisons: " << lts.Count() << std::endl;
-  outstream << std::endl;
-
-  /* Write sorted results. */
-  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".LSB"));
-
-  /******************** MSB Sort ********************/
-
-  /* Create the MSB class with the specified alphabet. */
-  MSB<CharType> msb(R, logR);
+  /* Create the LSD class with the specified alphabet. */
+  LSD<CharType> lsd(R, logR);
 
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
@@ -104,24 +78,50 @@ int main(int argc, char* argv[])
   /* Reset comparison count. */
   lts.Reset();
   
-  /* Perform and time the MSB sort. */
+  /* Perform and time the LSD sort. */
   timer.SplitReset();
-  msb.Sort(data, source_data.Size(), lts);
+  lsd.Sort(data, source_data.Size(), lts);
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
-  outstream << "MSB sort." << std::endl;
+  outstream << "LSD sort." << std::endl;
   outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
   outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
   outstream << "comparisons: " << lts.Count() << std::endl;
   outstream << std::endl;
 
   /* Write sorted results. */
-  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".MSB"));
+  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".LSD"));
+
+  /******************** MSD Sort ********************/
+
+  /* Create the MSD class with the specified alphabet. */
+  MSD<CharType> msd(R, logR);
+
+  /* Populate the data array to be sorted. */
+  fsu::g_copy(source_data.Begin(), source_data.End(), data);
+
+  /* Reset comparison count. */
+  lts.Reset();
+  
+  /* Perform and time the MSD sort. */
+  timer.SplitReset();
+  msd.Sort(data, source_data.Size(), lts);
+  instant = timer.SplitTime();
+
+  /* Output pertinent data. */
+  outstream << "MSD sort." << std::endl;
+  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
+  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
+  outstream << "comparisons: " << lts.Count() << std::endl;
+  outstream << std::endl;
+
+  /* Write sorted results. */
+  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".MSD"));
 
   /******************** 3WQS Sort ********************/
 
-  /* Create the MSB class with the specified alphabet. */
+  /* Create the MSD class with the specified alphabet. */
   QS3W<CharType> qs3w(R, logR);
 
   /* Populate the data array to be sorted. */
