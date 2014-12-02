@@ -3,17 +3,17 @@
 #include <algorithm>
 #include <functional>
 
-#ifndef _MSB_H
-#define _MSB_H
+#ifndef _MSD_H
+#define _MSD_H
 
 template <typename T>
-class MSB
+class MSD
 {
 public:
   typedef T Char;
   typedef Char* String;
 
-  MSB(size_t width, size_t size) : logR(width), R(size)
+  MSD(size_t width, size_t size) : logR(width), R(size)
   {
   }
 
@@ -27,7 +27,7 @@ private:
 
 template <typename T>
 template <class Predicate>
-void MSB<T>::Sort(String str, size_t length, Predicate& predicate)
+void MSD<T>::Sort(String str, size_t length, Predicate& predicate)
 {
   std::sort(&str[0], &str[length], std::ref(predicate));
 }
