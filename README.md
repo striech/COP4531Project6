@@ -30,7 +30,9 @@ The program should build with 'make'. This produces the following version of the
 
 ## Testing
 
-In the testing folder, there is a run.sh shell script. The shell script uses data in the testing/data/ folder as inputs to the ssspy.x program. For each of the versions of the ssspy.x program that is created (unicode16, extended_ascii, etc.), the following input files are run through the ssspy.x program. The results, including the timing information, and the sorted results produced from the different sorting algorithms, are written to files. The timing information needs to be analyzed manually, but the run.sh shell script does a diff of the sorted results versus the expected results, and the user will receive a notification if there are any sorted results that are not correct. These results are placed into the testing/results folder.
+In the testing folder, there is a run.sh shell script. This shell script runs the testing to generate timing information and ensure that the sorts are implemented correctly. It requires the executables to built.
+
+The shell script uses data in the testing/data/ folder as inputs to the ssspy.x program. For each of the versions of the ssspy.x program that is created (unicode16, extended_ascii, etc.), the following input files are run through the ssspy.x program. The results, including the timing information, and the sorted results produced from the different sorting algorithms, are written to files. The timing information needs to be analyzed manually, but the run.sh shell script does a diff of the sorted results versus the expected results, and the user will receive a notification if there are any sorted results that are not correct. These results are placed into the testing/results folder.
   * random_10000 - A file with 10000 random strings of the given type (unicode16, extended_ascii, etc.)
   * sorted_10000 - A file with 10000 strings, sorted, of the given type (unicode16, extended_ascii, etc.)
   * reversed_10000 - A file with 10000 strings, reversed, of the given type (unicode16, extended_ascii, etc.)
