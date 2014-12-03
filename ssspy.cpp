@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
   /******************** LSD Sort ********************/
 
   /* Create the LSD class with the specified alphabet. */
-  LSD<CharType> lsd(R, logR);
+  LSD<CharType> lsd(logR, R);
 
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
   /******************** MSD Sort ********************/
 
   /* Create the MSD class with the specified alphabet. */
-  MSD<CharType> msd(R, logR);
+  MSD<CharType> msd(logR, R);
 
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
   /******************** 3WQS Sort ********************/
 
   /* Create the MSD class with the specified alphabet. */
-  QS3W<CharType> qs3w(R, logR);
+  QS3W<CharType> qs3w(logR, R);
 
   /* Populate the data array to be sorted. */
   fsu::g_copy(source_data.Begin(), source_data.End(), data);
