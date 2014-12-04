@@ -55,13 +55,14 @@ void WriteSortedResultsFile(fsu::Vector< fsu::Vector<CharType> > & data, std::st
 int main(int argc, char* argv[])
 {
   /* Make sure command line arguments are ok. */
-  if(argc < 3)
+  if(argc < 4)
   {
     std::cout << " ** command line arguments:" << std::endl
 	      << "     1: input filename (required)" << std::endl
         << "     2: output filename (required) [This will output a file with the timing results," << std::endl
         << "                                    and also files with the sorted results, with extensions" << std::endl
         << "                                    .LSD, .MSD, and .3WQS." << std::endl
+        << "     3: width of words (required) [0 means the widths vary]" << std::endl
 	      << " ** try again" << std::endl;
     return 0;
   }
@@ -85,6 +86,10 @@ int main(int argc, char* argv[])
          << std::endl << " ** try again" << std::endl;
     return 0;
   }
+
+  /* Get the word width. */
+  size_t word_width;
+  std::istringstream(argv[3]) >> word_width;
 
   /* The less than spy used to determine how many comparisons were done as part
      of the sort. */
@@ -119,29 +124,33 @@ int main(int argc, char* argv[])
 
   /******************** LSD Sort ********************/
 
-  /* Create the LSD class with the specified alphabet. */
-  LSD<CharType> lsd(logR, R);
+  /* We can only do LSD sort with fixed width words. */
+  if(0 != word_width)
+  {
+    /* Create the LSD class with the specified alphabet. */
+    LSD<CharType> lsd(logR, R);
 
-  /* Populate the data array to be sorted. */
-  fsu::Vector< fsu::Vector<CharType> > lsd_data = source_strings;
+    /* Populate the data array to be sorted. */
+    fsu::Vector< fsu::Vector<CharType> > lsd_data = source_strings;
 
-  /* Reset comparison count. */
-  lts.Reset();
-  
-  /* Perform and time the LSD sort. */
-  timer.SplitReset();
-  lsd.Sort(lsd_data, lts);
-  instant = timer.SplitTime();
+    /* Reset comparison count. */
+    lts.Reset();
+    
+    /* Perform and time the LSD sort. */
+    timer.SplitReset();
+    lsd.Sort(lsd_data, word_width);
+    instant = timer.SplitTime();
 
-  /* Output pertinent data. */
-  outstream << "LSD sort." << std::endl;
-  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
-  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
-  outstream << "comparisons: " << lts.Count() << std::endl;
-  outstream << std::endl;
+    /* Output pertinent data. */
+    outstream << "LSD sort." << std::endl;
+    outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
+    outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
+    outstream << "comparisons: " << lts.Count() << std::endl;
+    outstream << std::endl;
 
-  /* Write sorted results. */
-  WriteSortedResultsFile(lsd_data, outfile + std::string(".LSD"));
+    /* Write sorted results. */
+    WriteSortedResultsFile(lsd_data, outfile + std::string(".LSD"));
+  }
 
   /******************** MSD Sort ********************/
 
