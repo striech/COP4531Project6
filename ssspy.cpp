@@ -11,6 +11,7 @@
 #include <string>
 #include <sstream>
 #include <iterator>
+#include <assert.h>
 #include "stringsort_type.h"
 
 /* UNICODE16
@@ -104,6 +105,9 @@ int main(int argc, char* argv[])
     std::istringstream is(line);
     while(is >> item)
     {
+      /* Make sure inputs look valid. */
+      assert(item < R);
+
       characters.PushBack(item);
     }
 
