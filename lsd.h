@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
+#include "vector.h"
 
 #ifndef _LSD_H
 #define _LSD_H
@@ -11,14 +12,12 @@ class LSD
 {
 public:
   typedef T Char;
-  typedef Char* String;
 
   LSD(size_t width, size_t size) : logR(width), R(size)
   {
   }
 
-  template <class Predicate>
-  void Sort(String str, size_t length, Predicate& predicate);
+  void Sort(fsu::Vector< fsu::Vector<Char> > & lsd_data, size_t fixed_width);
 
 private:
   size_t logR; // 8 * sizeof(T)
@@ -26,10 +25,10 @@ private:
 };
 
 template <typename T>
-template <class Predicate>
-void LSD<T>::Sort(String str, size_t length, Predicate& predicate)
+void LSD<T>::Sort(fsu::Vector< fsu::Vector<Char> > & lsd_data, size_t fixed_width)
 {
-  std::sort(&str[0], &str[length], std::ref(predicate));
+  (void)lsd_data;
+  (void)fixed_width;
 }
 
 #endif
