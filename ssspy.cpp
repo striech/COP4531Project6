@@ -124,7 +124,6 @@ int main(int argc, char* argv[])
 
   /******************** LSD Sort ********************/
 
-<<<<<<< HEAD
   /* We can only do LSD sort with fixed width words. */
   if(0 != word_width)
   {
@@ -152,31 +151,6 @@ int main(int argc, char* argv[])
     /* Write sorted results. */
     WriteSortedResultsFile(lsd_data, outfile + std::string(".LSD"));
   }
-=======
-  /* Create the LSD class with the specified alphabet. */
-  LSD<CharType> lsd(logR, R);
-
-  /* Populate the data array to be sorted. */
-  fsu::g_copy(source_data.Begin(), source_data.End(), data);
-
-  /* Reset comparison count. */
-  lts.Reset();
-  
-  /* Perform and time the LSD sort. */
-  timer.SplitReset();
-  lsd.Sort(data, source_data.Size(), lts);
-  instant = timer.SplitTime();
-
-  /* Output pertinent data. */
-  outstream << "LSD sort." << std::endl;
-  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
-  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
-  outstream << "comparisons: " << lts.Count() << std::endl;
-  outstream << std::endl;
-
-  /* Write sorted results. */
-  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".LSD"));
->>>>>>> 58617393de4dbcedb556ca622452b877d33d1719
 
   /******************** MSD Sort ********************/
 
