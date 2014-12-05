@@ -9,6 +9,9 @@
 #include "vector.h"
 #include <timer.h>
 #include <string>
+#include <sstream>
+#include <iterator>
+#include <assert.h>
 #include "stringsort_type.h"
 
 /* UNICODE16
@@ -47,18 +50,19 @@ const size_t logR = 1;
 const size_t R = 2;
 */
 
-void WriteSortedResultsFile(CharType * data, size_t length, std::string filename);
+void WriteSortedResultsFile(fsu::Vector< fsu::Vector<CharType> > & data, std::string filename);
 
 int main(int argc, char* argv[])
 {
   /* Make sure command line arguments are ok. */
-  if(argc < 3)
+  if(argc < 4)
   {
     std::cout << " ** command line arguments:" << std::endl
 	      << "     1: input filename (required)" << std::endl
         << "     2: output filename (required) [This will output a file with the timing results," << std::endl
         << "                                    and also files with the sorted results, with extensions" << std::endl
         << "                                    .LSD, .MSD, and .3WQS." << std::endl
+        << "     3: width of words (required) [0 means the widths vary]" << std::endl
 	      << " ** try again" << std::endl;
     return 0;
   }
@@ -83,6 +87,10 @@ int main(int argc, char* argv[])
     return 0;
   }
 
+  /* Get the word width. */
+  size_t word_width;
+  std::istringstream(argv[3]) >> word_width;
+
   /* The less than spy used to determine how many comparisons were done as part
      of the sort. */
   fsu::LessThanSpy<CharType> lts;
@@ -92,57 +100,72 @@ int main(int argc, char* argv[])
   fsu::Timer timer;
 
   /* Get the source data strings from the input file. */
-  fsu::Vector<CharType> source_data;
-  size_t item;
-  while(instream >> item)
+  fsu::Vector< fsu::Vector<CharType> > source_strings;
+  std::string line;
+  while(getline(instream, line))
   {
-    source_data.PushBack((CharType)item);
+    size_t item;
+    fsu::Vector<CharType> characters;
+
+    std::istringstream is(line);
+    while(is >> item)
+    {
+      /* Make sure inputs look valid. */
+      assert(item < R);
+
+      characters.PushBack(item);
+    }
+
+    source_strings.PushBack(characters);
   }
-  CharType * data = new CharType[source_data.Size()];
 
   /* Close instream. */
   instream.close();
 
   /******************** LSD Sort ********************/
 
-  /* Create the LSD class with the specified alphabet. */
-  LSD<CharType> lsd(R, logR);
+  /* We can only do LSD sort with fixed width words. */
+  if(0 != word_width)
+  {
+    /* Create the LSD class with the specified alphabet. */
+    LSD<CharType> lsd(logR, R);
 
-  /* Populate the data array to be sorted. */
-  fsu::g_copy(source_data.Begin(), source_data.End(), data);
+    /* Populate the data array to be sorted. */
+    fsu::Vector< fsu::Vector<CharType> > lsd_data = source_strings;
 
-  /* Reset comparison count. */
-  lts.Reset();
-  
-  /* Perform and time the LSD sort. */
-  timer.SplitReset();
-  lsd.Sort(data, source_data.Size(), lts);
-  instant = timer.SplitTime();
+    /* Reset comparison count. */
+    lts.Reset();
+    
+    /* Perform and time the LSD sort. */
+    timer.SplitReset();
+    lsd.Sort(lsd_data, word_width);
+    instant = timer.SplitTime();
 
-  /* Output pertinent data. */
-  outstream << "LSD sort." << std::endl;
-  outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
-  outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
-  outstream << "comparisons: " << lts.Count() << std::endl;
-  outstream << std::endl;
+    /* Output pertinent data. */
+    outstream << "LSD sort." << std::endl;
+    outstream << "time (seconds): " << instant.Get_seconds() << std::endl;
+    outstream << "time (useconds): " << instant.Get_useconds() << std::endl;
+    outstream << "comparisons: " << lts.Count() << std::endl;
+    outstream << std::endl;
 
-  /* Write sorted results. */
-  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".LSD"));
+    /* Write sorted results. */
+    WriteSortedResultsFile(lsd_data, outfile + std::string(".LSD"));
+  }
 
   /******************** MSD Sort ********************/
 
   /* Create the MSD class with the specified alphabet. */
-  MSD<CharType> msd(R, logR);
+  MSD<CharType> msd(logR, R);
 
   /* Populate the data array to be sorted. */
-  fsu::g_copy(source_data.Begin(), source_data.End(), data);
+  fsu::Vector< fsu::Vector<CharType> > msd_data = source_strings;
 
   /* Reset comparison count. */
   lts.Reset();
   
   /* Perform and time the MSD sort. */
   timer.SplitReset();
-  msd.Sort(data, source_data.Size(), lts);
+  msd.Sort(msd_data);
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
@@ -153,22 +176,22 @@ int main(int argc, char* argv[])
   outstream << std::endl;
 
   /* Write sorted results. */
-  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".MSD"));
+  WriteSortedResultsFile(msd_data, outfile + std::string(".MSD"));
 
   /******************** 3WQS Sort ********************/
 
   /* Create the MSD class with the specified alphabet. */
-  QS3W<CharType> qs3w(R, logR);
+  QS3W<CharType> qs3w(logR, R);
 
   /* Populate the data array to be sorted. */
-  fsu::g_copy(source_data.Begin(), source_data.End(), data);
+  fsu::Vector< fsu::Vector<CharType> > qs3w_data = source_strings;
 
   /* Reset comparison count. */
   lts.Reset();
   
   /* Perform and time the 3WQS sort. */
   timer.SplitReset();
-  qs3w.Sort(data, source_data.Size(), lts);
+  qs3w.Sort(qs3w_data, lts);
   instant = timer.SplitTime();
 
   /* Output pertinent data. */
@@ -179,7 +202,7 @@ int main(int argc, char* argv[])
   outstream << std::endl;
 
   /* Write sorted results. */
-  WriteSortedResultsFile(data, source_data.Size(), outfile + std::string(".3WQS"));
+  WriteSortedResultsFile(qs3w_data, outfile + std::string(".3WQS"));
 
   /* Close file. */
   outstream.close();
@@ -187,7 +210,7 @@ int main(int argc, char* argv[])
   return 0;
 }
 
-void WriteSortedResultsFile(CharType * data, size_t length, std::string filename)
+void WriteSortedResultsFile(fsu::Vector< fsu::Vector<CharType> > & data, std::string filename)
 {
   std::ofstream outstream(filename);
 
@@ -198,9 +221,17 @@ void WriteSortedResultsFile(CharType * data, size_t length, std::string filename
     return;
   }
 
-  for(size_t i = 0; i < length; i++)
+  for(size_t i = 0; i < data.Size(); i++)
   {
-    outstream << (size_t)data[i] << std::endl;
+    outstream << (size_t)data[i][0];
+
+    for(size_t j = 1; j < data[i].Size(); j++)
+    {
+      outstream << ' ';
+      outstream << (size_t)data[i][j];
+    }
+
+    outstream << std::endl;
   }
 
   outstream.close();
